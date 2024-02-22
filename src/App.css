@@ -16,6 +16,11 @@
   flex-direction: column;
   align-items: center;
   padding: 0px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.menu-item:last-child {
+  padding-bottom: 100px; /* Adjust this value to match or exceed your footer's height */
 }
 
 body {
@@ -25,7 +30,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .section {
@@ -77,24 +81,74 @@ img {
   aspect-ratio: 1; 
 }
 
-.add-button {
-  background-color: whitesmoke; 
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border: 1px solid black; 
-  border-radius: 20px; 
-  cursor: pointer; 
-  font-size: 12px; 
-  width: 80%;
-  height: 100%;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+.circle-btn-container {
+  align-items: center; /* Centers items vertically */
+  justify-content: center; /* Centers items horizontally within the container */
+  padding: 0; /* Resets padding */
 }
 
-.add-button:hover {
+.circle-btn {
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: auto;
+  display: flex;
+  width: 17px; /* Sets both width and height to be the same for a circle */
+  height: 17px;
+  border-radius: 50%; /* Makes the element circular */
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px; /* Provides spacing between buttons */
+  margin-right: 5px; 
+  padding: 0; /* Removes padding inside the button */
+}
+
+.circle-btn:hover {
   background-color: gray; 
 } 
 
+.quantity {
+  font-size: 16px; /* Adjust as per your UI */
+}
 
+.menu-item-actions {
+  display: flex; /* This will line up the child elements in a row */
+  align-items: center; /* This will vertically center the items in the container */
+  justify-content: center; /* This will horizontally center the items */
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #FFF; /* Change to match your color scheme */
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
+  z-index: 10; /* Keeps the footer above other content */
+  padding: 20px; /* Add padding as needed */
+  display: flex; 
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.subtotal {
+  margin-right: auto;
+  font-size: 18px; /* Larger font size */
+}
+
+.clear-all-btn, .order-btn {
+  padding: 10px; /* Add padding as needed */
+  padding-top: 1px;
+  padding-bottom: 1px; 
+  border: 1px solid black; /* Remove border */
+  border-radius: 20px; /* Rounded corners */
+  background: #c3c3c3; /* Example blue color, change as needed */
+  color: black; /* Text color */
+}
+
+.clear-all-btn {
+  margin-left: 20px; 
+}
+
+.clear-all-btn:hover, .order-btn:hover{
+  background-color: gray; 
+} 

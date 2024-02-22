@@ -1,6 +1,9 @@
 import './App.css';
 import MenuItem from './components/MenuItem';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import React, { useState, useEffect } from 'react';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css'; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
 
@@ -81,16 +84,52 @@ const menuItems = [
 
 
 function App() {
+
+  const [quantities, setQuantities] = useState(menuItems.reduce((acc, item) => {
+    acc[item.id] = 0; // Initialize a quantity for each menu item
+    return acc;
+  }, {}));
+
+  const [subtotal, setSubtotal] = useState(0);
+
+  useEffect(() => {
+    // Whenever quantities change, recalculate subtotal
+    const newSubtotal = menuItems.reduce((acc, item) => {
+      return acc + quantities[item.id] * item.price;
+    }, 0);
+    setSubtotal(newSubtotal);
+  }, [quantities]);
+
+  const updateQuantity = (itemId, newQuantity) => {
+    setQuantities(prev => ({
+      ...prev,
+      [itemId]: newQuantity
+    }));
+  };
+
+  const clearQuantities = () => {
+    const resetQuantities = {};
+    // Assuming 'menuItems' holds all your menu item data
+    menuItems.forEach(item => {
+      resetQuantities[item.id] = 0;
+    });
+    setQuantities(resetQuantities); // Assuming 'setQuantities' is your state setter for quantities
+  };
+
   return (
     <div>
       <div className="header">
         <Header logoName='os-logo.png' desc1='Delicious, From-Scratch Recipes Close at Hand' desc2='The Fresh Choice of UT!' />
       </div>
-      <div className="container">
+      <div className="container menu">
         {/* Display menu items dynamically here by iterating over the provided menuItems */}
         {menuItems.map((menuItem) => (
-          <MenuItem key={menuItem.id} title={menuItem.title} description={menuItem.description} price={menuItem.price} imageName={menuItem.imageName} />
+          <MenuItem key={menuItem.id} title={menuItem.title} description={menuItem.description} price={menuItem.price} imageName={menuItem.imageName} updateQuantity={(newQuantity) => updateQuantity(menuItem.id, newQuantity)}
+          quantity={quantities[menuItem.id]} />
         ))}
+      </div>
+      <div className="container">
+        <Footer subtotal={subtotal.toFixed(2)} clear={clearQuantities} menuItems={menuItems} quantities={quantities}/>
       </div>
     </div>
   );
