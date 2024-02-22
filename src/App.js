@@ -85,11 +85,13 @@ const menuItems = [
 
 function App() {
 
+  // array to keep track of each menu item quantity. acc = accumulator
   const [quantities, setQuantities] = useState(menuItems.reduce((acc, item) => {
     acc[item.id] = 0; // Initialize a quantity for each menu item
     return acc;
   }, {}));
 
+  // Subtotal tracker 
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
@@ -100,6 +102,7 @@ function App() {
     setSubtotal(newSubtotal);
   }, [quantities]);
 
+  // Function to update quantity either up or down based on button press
   const updateQuantity = (itemId, newQuantity) => {
     setQuantities(prev => ({
       ...prev,
@@ -107,6 +110,7 @@ function App() {
     }));
   };
 
+  // Function to clear all quantities and reset subtotal for "clear" button
   const clearQuantities = () => {
     const resetQuantities = {};
     // Assuming 'menuItems' holds all your menu item data
